@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    android:paddingBottom="32dp"
+    android:paddingTop="12dp"
+    android:background="@drawable/bottom_sheet_background">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:background="#E0E0E0" />
+
+    <TextView
+        android:id="@+id/NewInvestmentTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/new_investment"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:layout_marginBottom="24dp"/>
+
+    <EditText
+        android:id="@+id/TitlePlaceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="@string/Stocks"
+        android:background="@drawable/edit_text_background"
+        android:importantForAutofill="no"
+        android:paddingHorizontal="16dp"
+        android:inputType="text"
+        android:textColor="#212121"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/DescPlaceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:autofillHints="The Amount Of Investment"
+        android:hint="@string/description"
+        android:background="@drawable/edit_text_background"
+        android:paddingHorizontal="16dp"
+        android:inputType="text"
+        android:textColor="#212121"
+        android:layout_marginBottom="16dp"/>
+
+    <EditText
+        android:id="@+id/AmountPlaceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="@string/amount"
+        android:background="@drawable/edit_text_background"
+        android:importantForAutofill="no"
+        android:paddingHorizontal="16dp"
+        android:inputType="numberDecimal"
+        android:textColor="#212121"
+        android:layout_marginBottom="24dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/SaveBt"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/save"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:textAllCaps="false"
+        app:cornerRadius="12dp"
+        android:backgroundTint="#CC9044"
+        android:textColor="@android:color/white"/>
+</LinearLayout>

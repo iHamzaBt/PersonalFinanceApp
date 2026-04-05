@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:paddingHorizontal="24dp"
+    android:paddingBottom="32dp"
+    android:paddingTop="12dp"
+    android:background="@drawable/bottom_sheet_background">
+
+    <View
+        android:layout_width="40dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="24dp"
+        android:background="#E0E0E0" />
+
+    <TextView
+        android:id="@+id/tvFundGoalTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/fund_goal"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:layout_marginBottom="24dp"/>
+
+    <EditText
+        android:id="@+id/FundAmountPlaceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:hint="@string/amount_to_save_today"
+        android:background="@drawable/edit_text_background"
+        android:importantForAutofill="no"
+        android:paddingHorizontal="16dp"
+        android:inputType="numberDecimal"
+        android:textColor="#212121"
+        android:layout_marginBottom="24dp"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/SaveFundBt"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:text="@string/deposit"
+        android:textSize="16sp"
+        android:textAllCaps="false"
+        android:textStyle="bold"
+        app:cornerRadius="12dp"
+        android:backgroundTint="#2E7D32"
+        android:textColor="@android:color/white"/>
+</LinearLayout>
