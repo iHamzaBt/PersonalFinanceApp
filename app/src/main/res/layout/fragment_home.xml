@@ -237,6 +237,47 @@
         </com.google.android.material.card.MaterialCardView>
 
         <TextView
+            android:id="@+id/tvOverviewLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:text="Overview"
+            android:textColor="#212121"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/cardIncomeExpense" />
+
+        <Spinner
+            android:id="@+id/spinnerPeriod"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#2E7D32"
+            app:layout_constraintBottom_toBottomOf="@id/tvOverviewLabel"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvOverviewLabel" />
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/cardChart"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            app:cardBackgroundColor="@color/white"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="2dp"
+            app:strokeWidth="1dp"
+            app:strokeColor="#F0F0F0"
+            app:layout_constraintTop_toBottomOf="@id/tvOverviewLabel">
+
+            <com.github.mikephil.charting.charts.LineChart
+                android:id="@+id/mainChart"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_margin="6dp" />
+
+        </com.google.android.material.card.MaterialCardView>
+
+        <TextView
             android:id="@+id/tvGoalsLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -246,7 +287,7 @@
             android:textSize="18sp"
             android:textStyle="bold"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/cardIncomeExpense" />
+            app:layout_constraintTop_toBottomOf="@id/cardChart" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSeeGoals"

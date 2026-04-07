@@ -47,4 +47,5 @@
     <string name="notifications">Notifications</string>
     <string name="title_e_g_coffee">Title (e.g. Coffee)</string>
     <string name="fund_goal">Fund Goal</string>
+    <string name="overview">Overview:</string>
 </resources>
