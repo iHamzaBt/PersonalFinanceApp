@@ -49,11 +49,11 @@ public class MainActivity extends AppCompatActivity {
             if (id == R.id.nav_home) {
                 selectedFragment = new HomeFragment();
             } else if (id == R.id.nav_transactions) {
-                selectedFragment = new HomeFragment();
+                selectedFragment = new TransactionListFragment();
             } else if (id == R.id.nav_stats) {
                 selectedFragment = new HomeFragment();
             } else if (id == R.id.nav_settings) {
-                selectedFragment = new HomeFragment();
+                selectedFragment = new HomeFragment(); 
             }
 
             if (selectedFragment != null) {

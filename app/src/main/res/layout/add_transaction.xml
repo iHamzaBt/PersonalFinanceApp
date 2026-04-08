@@ -44,6 +44,7 @@
             android:text="@string/expense"
             android:textColor="#C62828"
             app:backgroundTint="@color/expense"
+            app:cornerRadius="12dp"
             app:strokeColor="#E53935" />
 
         <com.google.android.material.button.MaterialButton
@@ -53,6 +54,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/income"
+            app:cornerRadius="12dp"
             app:backgroundTint="@color/income"
             android:textColor="#43A047"
             app:strokeColor="#43A047" />
@@ -76,7 +78,8 @@
         android:layout_height="56dp"
         android:hint="@string/description"
         android:background="@drawable/edit_text_background"
-        android:importantForAutofill="no" android:paddingHorizontal="16dp"
+        android:importantForAutofill="no"
+        android:paddingHorizontal="16dp"
         android:inputType="text"
         android:textColor="#212121"
         android:layout_marginBottom="16dp"/>
@@ -98,7 +101,7 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
+        android:layout_marginBottom="16dp"
         app:boxCornerRadiusBottomEnd="12dp"
         app:boxCornerRadiusBottomStart="12dp"
         app:boxCornerRadiusTopEnd="12dp"
@@ -112,15 +115,58 @@
             android:inputType="none" />
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/SaveBt"
+    <EditText
+        android:id="@+id/DatePlaceHolder"
         android:layout_width="match_parent"
         android:layout_height="56dp"
-        android:text="@string/save"
-        android:textStyle="bold"
-        android:textSize="16sp"
-        android:textAllCaps="false"
-        app:cornerRadius="12dp"
-        android:backgroundTint="#2196F3"
-        android:textColor="@android:color/white"/>
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="Date"
+        android:focusable="false"
+        android:clickable="true"
+        android:cursorVisible="false"
+        android:paddingHorizontal="16dp"
+        android:textColor="#212121" />
+
+    <EditText
+        android:id="@+id/NotePlaceHolder"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/edit_text_background"
+        android:hint="Note (Optional)"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:paddingHorizontal="16dp"
+        android:textColor="#212121" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:weightSum="2">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/CancelBt"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="8dp"
+            android:text="@string/cancel"
+            android:textColor="#757575" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/SaveBt"
+            android:layout_width="0dp"
+            android:layout_height="56dp"
+            android:layout_weight="1"
+            android:text="@string/save"
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:textAllCaps="false"
+            app:cornerRadius="12dp"
+            android:backgroundTint="#2196F3"
+            android:textColor="@android:color/white"/>
+    </LinearLayout>
 </LinearLayout>

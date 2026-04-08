@@ -371,6 +371,7 @@
                     android:layout_height="wrap_content"
                     android:text="@string/invest"
                     android:textColor="#FFFFFF"
+                    android:textStyle="bold"
                     android:backgroundTint="#CC9044"
                     app:cornerRadius="30dp"
                     android:paddingHorizontal="16dp"
