@@ -61,4 +61,7 @@
     <string name="home">Home</string>
     <string name="transactions">Transactions</string>
     <string name="cancel">Cancel</string>
+    <string name="current_period">November 2026</string>
+    <string name="overview_tap">Overview</string>
+    <string name="spending_analytics">Spending Analytics</string>
 </resources>
