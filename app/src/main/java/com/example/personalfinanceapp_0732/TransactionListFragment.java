@@ -71,19 +71,13 @@ public class TransactionListFragment extends Fragment {
                 return;
             }
 
-            if ("Investment".equals(transaction.getCategory())) {
-                AddInvestmentSheet editSheet = new AddInvestmentSheet();
-                editSheet.setTransactionToEdit(transaction);
-                editSheet.show(getChildFragmentManager(), "EditInvestmentSheet");
-            } else {
-                AddEditTransactionFragment editFragment = new AddEditTransactionFragment();
-                editFragment.setTransactionToEdit(transaction);
-                requireActivity().getSupportFragmentManager().beginTransaction()
-                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
-                        .replace(R.id.fragment_container, editFragment)
-                        .addToBackStack(null)
-                        .commit();
-            }
+            TransactionDetailsFragment detailsFragment = new TransactionDetailsFragment();
+            detailsFragment.setTransaction(transaction);
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                    .replace(R.id.fragment_container, detailsFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
