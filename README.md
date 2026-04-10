@@ -32,3 +32,7 @@ Charts: MPAndroidChart library
 Material Design components with View Binding.
 
 Animations: Lottie Android (Airbnb) - for high-quality, lightweight animations.
+
+-----------------------------------------
+
+Dark Mood, Multi-Currency, App Currency Change, and Export / Share are Coming Soon.....
