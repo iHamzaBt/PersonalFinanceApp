@@ -42,4 +42,16 @@ public class TransactionRepository {
 
     public LiveData<List<Notification>> getAllNotifications() { return allNotifications; }
     public void insertNotification(Notification notification) { executorService.execute(() -> notificationDao.insert(notification)); }
+
+    public void deleteAllTransactions() {
+        executorService.execute(() -> transactionDao.deleteAllTransactions());
+    }
+
+    public void deleteAllGoals() {
+        executorService.execute(() -> goalDao.deleteAll());
+    }
+
+    public void deleteAllNotifications() {
+        executorService.execute(() -> notificationDao.deleteAll());
+    }
 }

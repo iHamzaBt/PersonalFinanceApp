@@ -13,6 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="24dp"
         android:layout_marginBottom="24dp"
+        android:contentDescription="@string/float_button_transaction_text"
         android:src="@drawable/baseline_add_24"
         app:backgroundTint="#2E7D32"
         app:tint="#FFFFFF"
@@ -154,7 +155,7 @@
         android:id="@+id/groupEmptyState"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:constraint_referenced_ids="lottieEmptyState,tvEmptyMessage,tvEmptySubMessage,btnEmptyStateAdd" />
 
     <com.airbnb.lottie.LottieAnimationView

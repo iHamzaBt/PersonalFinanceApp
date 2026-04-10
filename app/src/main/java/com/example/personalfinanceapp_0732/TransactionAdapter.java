@@ -45,7 +45,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             holder.binding.cardItem.setCardBackgroundColor(Color.parseColor("#FFF9C4"));
             holder.binding.cardItem.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#FBC02D")));
             holder.binding.viewCategoryColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFF59D")));
-            holder.binding.ivCategoryIcon.setImageResource(R.drawable.outline_compare_arrows_24);
+            holder.binding.ivCategoryIcon.setImageResource(R.drawable.investment_ic_adapter);
+            holder.binding.ivCategoryIcon.setColorFilter(Color.parseColor("#FBC02D"));
         } else if ("Income".equals(current.getType())) {
             holder.binding.tvTransactionAmount.setText("+$" + current.getAmount());
             holder.binding.tvTransactionAmount.setTextColor(Color.parseColor("#2E7D32"));
@@ -53,7 +54,8 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             holder.binding.cardItem.setCardBackgroundColor(Color.parseColor("#E8F5E9"));
             holder.binding.cardItem.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#4CAF50")));
             holder.binding.viewCategoryColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C8E6C9")));
-            holder.binding.ivCategoryIcon.setImageResource(android.R.drawable.ic_menu_info_details);
+            holder.binding.ivCategoryIcon.setImageResource(R.drawable.income_ic_adapter);
+            holder.binding.ivCategoryIcon.setColorFilter(Color.parseColor("#2E7D32"));
         } else {
             holder.binding.tvTransactionAmount.setText("-$" + current.getAmount());
             holder.binding.tvTransactionAmount.setTextColor(Color.parseColor("#C62828"));
@@ -61,10 +63,10 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             holder.binding.cardItem.setCardBackgroundColor(Color.parseColor("#FFEBEE"));
             holder.binding.cardItem.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#F44336")));
             holder.binding.viewCategoryColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFCDD2")));
-            holder.binding.ivCategoryIcon.setImageResource(android.R.drawable.ic_menu_info_details);
+            holder.binding.ivCategoryIcon.setImageResource(R.drawable.expense_ic_adapter);
+            holder.binding.ivCategoryIcon.setColorFilter(Color.parseColor("#C62828"));
         }
     }
-
     @Override
     public int getItemCount() {
         return transactions.size();

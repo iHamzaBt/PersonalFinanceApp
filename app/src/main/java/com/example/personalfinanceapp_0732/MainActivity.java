@@ -53,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
             } else if (id == R.id.nav_stats) {
                 selectedFragment = new ReportsFragment();
             } else if (id == R.id.nav_settings) {
-                selectedFragment = new HomeFragment();
+                selectedFragment = new SettingsFragment();
             }
 
             if (selectedFragment != null) {

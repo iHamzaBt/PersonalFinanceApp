@@ -64,4 +64,13 @@
     <string name="current_period">November 2026</string>
     <string name="overview_tap">Overview</string>
     <string name="spending_analytics">Spending Analytics</string>
+    <string name="float_button_transaction_text">Press if you want to add Transaction</string>
+    <string name="skip">Skip</string>
+    <string name="next">Next</string>
+    <string name="expense_with_arrow_down">↓ Expense</string>
+    <string name="income_arrow_up">↑ Income</string>
+    <string name="balance_widget">Balance Widget</string>
+    <string name="reset">Reset All Data</string>
+    <string name="add_to_home_screen">Add to home screen</string>
+    <string name="preferences">PREFERENCES</string>
 </resources>

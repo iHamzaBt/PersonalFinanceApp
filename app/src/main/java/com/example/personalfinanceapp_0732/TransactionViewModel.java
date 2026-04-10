@@ -32,4 +32,8 @@ public class TransactionViewModel extends AndroidViewModel {
 
     public LiveData<List<Notification>> getAllNotifications() { return allNotifications; }
     public void insertNotification(Notification notification) { repository.insertNotification(notification); }
+
+    public void deleteAllTransactions() { repository.deleteAllTransactions(); }
+    public void deleteAllGoals() { repository.deleteAllGoals(); }
+    public void deleteAllNotifications() { repository.deleteAllNotifications(); }
 }

@@ -51,7 +51,6 @@ public class ReportsFragment extends Fragment {
                 }
         ).attach();
 
-        // تطبيق الفلتر الافتراضي (الشهر الحالي)
         applyPeriodFilterToAllTabs();
     }
 
@@ -61,7 +60,7 @@ public class ReportsFragment extends Fragment {
     }
 
     private void showPeriodPickerDialog() {
-        Calendar maxDate = Calendar.getInstance(); // اليوم هو الحد الأقصى
+        Calendar maxDate = Calendar.getInstance();
 
         DatePickerDialog dialog = new DatePickerDialog(requireContext(),
                 (pickerView, year, month, dayOfMonth) -> {
@@ -75,7 +74,6 @@ public class ReportsFragment extends Fragment {
                 selectedPeriod.get(Calendar.MONTH),
                 selectedPeriod.get(Calendar.DAY_OF_MONTH));
 
-        // منع اختيار تاريخ في المستقبل
         dialog.getDatePicker().setMaxDate(maxDate.getTimeInMillis());
         dialog.show();
     }
@@ -84,11 +82,9 @@ public class ReportsFragment extends Fragment {
         int year = selectedPeriod.get(Calendar.YEAR);
         int month = selectedPeriod.get(Calendar.MONTH);
 
-        // تحقق إذا الشهر المختار في المستقبل
         Calendar now = Calendar.getInstance();
         if (year > now.get(Calendar.YEAR) ||
                 (year == now.get(Calendar.YEAR) && month > now.get(Calendar.MONTH))) {
-            // شهر مستقبلي — لا تعرض بيانات
             notifyAllTabs(-1, -1);
             return;
         }

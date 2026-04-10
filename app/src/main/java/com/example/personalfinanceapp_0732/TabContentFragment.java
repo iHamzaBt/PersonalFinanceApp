@@ -41,20 +41,19 @@ public class TabContentFragment extends Fragment {
     private int selectedYear = -1;
     private int selectedMonth = -1;
 
-    // ألوان ثابتة وواضحة
     private static final int[] CHART_COLORS = {
-            Color.parseColor("#2196F3"), // أزرق
-            Color.parseColor("#4CAF50"), // أخضر
-            Color.parseColor("#F44336"), // أحمر
-            Color.parseColor("#FF9800"), // برتقالي
-            Color.parseColor("#9C27B0"), // بنفسجي
-            Color.parseColor("#00BCD4"), // سماوي
-            Color.parseColor("#E91E63"), // وردي
-            Color.parseColor("#8BC34A"), // أخضر فاتح
-            Color.parseColor("#FF5722"), // برتقالي داكن
-            Color.parseColor("#607D8B"), // رمادي أزرق
-            Color.parseColor("#FFC107"), // أصفر
-            Color.parseColor("#795548"), // بني
+            Color.parseColor("#2196F3"),
+            Color.parseColor("#4CAF50"),
+            Color.parseColor("#F44336"),
+            Color.parseColor("#FF9800"),
+            Color.parseColor("#9C27B0"),
+            Color.parseColor("#00BCD4"),
+            Color.parseColor("#E91E63"),
+            Color.parseColor("#8BC34A"),
+            Color.parseColor("#FF5722"),
+            Color.parseColor("#607D8B"),
+            Color.parseColor("#FFC107"),
+            Color.parseColor("#795548"),
     };
 
     public static TabContentFragment newInstance(int position) {
@@ -136,7 +135,6 @@ public class TabContentFragment extends Fragment {
         binding.pieChartCategories.setHighlightPerTapEnabled(true);
         binding.pieChartCategories.setRotationEnabled(true);
 
-        // إعداد Legend للـ PieChart — يدوي بالكامل لتجنب مشاكل الألوان
         Legend pieLegend = binding.pieChartCategories.getLegend();
         pieLegend.setEnabled(true);
         pieLegend.setVerticalAlignment(Legend.LegendVerticalAlignment.BOTTOM);
@@ -167,7 +165,6 @@ public class TabContentFragment extends Fragment {
             }
         });
 
-        // إعداد BarChart
         binding.barChartMonthly.getDescription().setEnabled(false);
         binding.barChartMonthly.setDrawGridBackground(false);
         binding.barChartMonthly.setFitBars(true);
@@ -220,7 +217,6 @@ public class TabContentFragment extends Fragment {
             int color = CHART_COLORS[colorIndex % CHART_COLORS.length];
             colors.add(color);
 
-            // إنشاء Legend entry يدوياً بالألوان الصحيحة
             LegendEntry le = new LegendEntry();
             le.label = category;
             le.formColor = color;
@@ -239,7 +235,6 @@ public class TabContentFragment extends Fragment {
         PieData data = new PieData(dataSet);
         binding.pieChartCategories.setData(data);
 
-        // تطبيق Legend يدوياً
         binding.pieChartCategories.getLegend().setCustom(legendEntries);
 
         showDefaultTotal();

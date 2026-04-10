@@ -1,6 +1,9 @@
 package com.example.personalfinanceapp_0732;
 
+import android.appwidget.AppWidgetManager;
+import android.content.ComponentName;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -22,7 +25,6 @@ import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.example.personalfinanceapp_0732.databinding.FragmentHomeBinding;
-
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -130,6 +132,9 @@ public class HomeFragment extends Fragment {
     }
 
     private void setupChart() {
+        binding.mainChart.setNoDataText("No transactions found.");
+        binding.mainChart.setNoDataTextColor(Color.parseColor("#757575"));
+
         binding.mainChart.getDescription().setEnabled(false);
         binding.mainChart.setTouchEnabled(true);
         binding.mainChart.setDragEnabled(true);
@@ -195,7 +200,6 @@ public class HomeFragment extends Fragment {
         dataSet.setCircleHoleColor(Color.WHITE);
 
         dataSet.setDrawValues(false);
-
         dataSet.setDrawFilled(true);
 
         LineData lineData = new LineData(dataSet);
@@ -217,15 +221,13 @@ public class HomeFragment extends Fragment {
                 return;
             }
 
-            if ("Investment".equals(transaction.getCategory())) {
-                AddInvestmentSheet editSheet = new AddInvestmentSheet();
-                editSheet.setTransactionToEdit(transaction);
-                editSheet.show(getChildFragmentManager(), "EditInvestmentSheet");
-            } else {
-                AddTransactionSheet editSheet = new AddTransactionSheet();
-                editSheet.setTransactionToEdit(transaction);
-                editSheet.show(getChildFragmentManager(), "EditTransactionSheet");
-            }
+            TransactionDetailsFragment detailsFragment = new TransactionDetailsFragment();
+            detailsFragment.setTransaction(transaction);
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                    .replace(R.id.fragment_container, detailsFragment)
+                    .addToBackStack(null)
+                    .commit();
         });
 
         new ItemTouchHelper(new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
@@ -314,6 +316,25 @@ public class HomeFragment extends Fragment {
         binding.tvIncomeValue.setText(String.format(Locale.US, "$%.2f", income));
         binding.tvExpenseValue.setText(String.format(Locale.US, "$%.2f", expense));
         binding.tvTotalInvestment.setText(String.format(Locale.US, "$%.2f", totalInvestment));
+
+        updateWidget(balance, income, expense);
+    }
+
+    private void updateWidget(double balance, double income, double expense) {
+        SharedPreferences prefs = requireContext().getSharedPreferences("widget_data",
+                android.content.Context.MODE_PRIVATE);
+        prefs.edit()
+                .putString("balance", String.format(Locale.US, "$%.2f", balance))
+                .putString("income",  String.format(Locale.US, "$%.2f", income))
+                .putString("expense", String.format(Locale.US, "$%.2f", expense))
+                .apply();
+
+        AppWidgetManager manager = AppWidgetManager.getInstance(requireContext());
+        int[] ids = manager.getAppWidgetIds(
+                new ComponentName(requireContext(), BalanceWidget.class));
+        for (int id : ids) {
+            BalanceWidget.updateWidget(requireContext(), manager, id);
+        }
     }
 
     @Override

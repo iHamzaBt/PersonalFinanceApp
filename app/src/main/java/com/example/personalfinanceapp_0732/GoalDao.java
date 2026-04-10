@@ -18,4 +18,7 @@ public interface GoalDao {
 
     @Query("SELECT * FROM goal_table ORDER BY id DESC")
     LiveData<List<Goal>> getAllGoals();
+
+    @Query("DELETE FROM goal_table")
+    void deleteAll();
 }
