@@ -102,7 +102,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/expense_with_arrow_down"
-                android:textColor="#EF9A9A"
+                android:textColor="#EF5350"
                 android:textSize="11sp" />
 
             <TextView

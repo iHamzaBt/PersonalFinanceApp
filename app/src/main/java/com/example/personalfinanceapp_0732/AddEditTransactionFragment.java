@@ -88,7 +88,6 @@ public class AddEditTransactionFragment extends Fragment {
 
         binding.etTitle.setText(transactionToEdit.getTitle());
 
-        // Logic لفصل الملاحظة عن الوصف
         String fullDesc = transactionToEdit.getDescription();
         if (fullDesc != null && fullDesc.contains(" | Note: ")) {
             String[] parts = fullDesc.split(" \\| Note: ");

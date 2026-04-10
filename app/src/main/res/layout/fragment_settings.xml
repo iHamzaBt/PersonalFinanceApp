@@ -17,7 +17,8 @@
         android:textSize="24sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="HardcodedText" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/settingsScrollView"
@@ -67,10 +68,68 @@
                     android:orientation="vertical">
 
                     <LinearLayout
+                        android:id="@+id/rowUserName"
+                        android:layout_width="match_parent"
+                        android:layout_height="64dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:paddingHorizontal="16dp"
+                        android:background="?attr/selectableItemBackground">
+
+                        <ImageView
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:background="@drawable/settings_icon_bg_blue"
+                            android:importantForAccessibility="no"
+                            android:padding="8dp"
+                            android:src="@android:drawable/ic_menu_edit"
+                            app:tint="#1565C0" />
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="12dp"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/your_name"
+                                android:textColor="#212121"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+
+                            <TextView
+                                android:id="@+id/tvUserNameValue"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:textColor="#757575"
+                                android:textSize="13sp"
+                                tools:text="Hamza" />
+                        </LinearLayout>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:importantForAccessibility="no"
+                            android:src="@drawable/outline_arrow_back_ios_24"
+                            android:rotation="180"
+                            app:tint="#BDBDBD" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="68dp"
+                        android:background="#F5F5F5" />
+
+                    <LinearLayout
                         android:id="@+id/rowCurrency"
                         android:layout_width="match_parent"
                         android:layout_height="64dp"
                         android:gravity="center_vertical"
+                        android:importantForAccessibility="no"
                         android:orientation="horizontal"
                         android:paddingHorizontal="16dp"
                         android:background="?attr/selectableItemBackground">
@@ -93,7 +152,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Currency"
+                                android:text="@string/currency"
                                 android:textColor="#212121"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
@@ -110,6 +169,7 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:importantForAccessibility="no"
                             android:src="@drawable/outline_arrow_back_ios_24"
                             android:rotation="180"
                             app:tint="#BDBDBD" />
@@ -149,7 +209,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Theme"
+                                android:text="@string/theme"
                                 android:textColor="#212121"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
@@ -166,6 +226,7 @@
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:importantForAccessibility="no"
                             android:src="@drawable/outline_arrow_back_ios_24"
                             android:rotation="180"
                             app:tint="#BDBDBD" />
@@ -205,7 +266,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="First Day of Week"
+                                android:text="@string/first_day_of_week"
                                 android:textColor="#212121"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
@@ -237,7 +298,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="8dp"
-                android:text="SECURITY"
+                android:text="@string/security"
                 android:textColor="#9E9E9E"
                 android:textSize="12sp"
                 android:letterSpacing="0.1"
@@ -273,6 +334,7 @@
                             android:layout_width="40dp"
                             android:layout_height="40dp"
                             android:background="@drawable/settings_icon_bg"
+                            android:importantForAccessibility="no"
                             android:padding="8dp"
                             android:src="@drawable/finger_print_ic"
                             app:tint="#2E7D32" />
@@ -287,7 +349,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Fingerprint Lock"
+                                android:text="@string/fingerprint_lock"
                                 android:textColor="#212121"
                                 android:textSize="15sp"
                                 android:textStyle="bold" />
@@ -373,7 +435,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginBottom="8dp"
-                android:text="DATA MANAGEMENT"
+                android:text="@string/data_management"
                 android:textColor="#9E9E9E"
                 android:textSize="12sp"
                 android:letterSpacing="0.1"
@@ -384,6 +446,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="16dp"
+                android:importantForAccessibility="no"
                 app:cardBackgroundColor="#FFFFFF"
                 app:cardCornerRadius="16dp"
                 app:cardElevation="0dp"
@@ -426,7 +489,7 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Delete all transactions and goals"
+                            android:text="@string/delete_all_transactions_and_goals"
                             android:textColor="#EF9A9A"
                             android:textSize="13sp" />
                     </LinearLayout>

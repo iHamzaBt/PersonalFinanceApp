@@ -17,4 +17,7 @@ public interface NotificationDao {
 
     @Query("DELETE FROM notification_table")
     void deleteAll();
+
+    @androidx.room.Delete
+    void delete(Notification notification);
 }

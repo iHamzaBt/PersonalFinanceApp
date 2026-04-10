@@ -28,6 +28,7 @@ import com.example.personalfinanceapp_0732.databinding.FragmentHomeBinding;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -39,6 +40,7 @@ public class HomeFragment extends Fragment {
     private HomeGoalAdapter homeGoalAdapter;
     private List<Goal> allCurrentGoals = new ArrayList<>();
     private List<Transaction> allTransactionsList = new ArrayList<>();
+    private List<Budget> allBudgetsList = new ArrayList<>();
     private int currentPeriodFilter = 0;
 
     @Nullable
@@ -46,6 +48,7 @@ public class HomeFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = FragmentHomeBinding.inflate(inflater, container, false);
 
+        loadUserName();
         setupRecyclerViews();
         setupChart();
         setupPeriodSpinner();
@@ -68,6 +71,11 @@ public class HomeFragment extends Fragment {
             homeGoalAdapter.setGoals(activeGoals);
         });
 
+        viewModel.getAllBudgets().observe(getViewLifecycleOwner(), budgets -> {
+            allBudgetsList = budgets;
+            updateBudgetCard();
+        });
+
         viewModel.getAllNotifications().observe(getViewLifecycleOwner(), notifications -> {
             if (notifications != null && !notifications.isEmpty()) {
                 binding.notificationBadge.setVisibility(View.VISIBLE);
@@ -79,6 +87,12 @@ public class HomeFragment extends Fragment {
         setupClickListeners();
 
         return binding.getRoot();
+    }
+
+    private void loadUserName() {
+        SharedPreferences prefs = requireContext().getSharedPreferences("app_settings", android.content.Context.MODE_PRIVATE);
+        String userName = prefs.getString("user_name", "Hamza");
+        binding.tvUserName.setText(userName);
     }
 
     private void setupPeriodSpinner() {
@@ -129,6 +143,80 @@ public class HomeFragment extends Fragment {
         adapter.setTransactions(filteredList);
         calculateFinances(filteredList);
         updateChartData(filteredList);
+        updateBudgetCard();
+    }
+
+    private void updateBudgetCard() {
+        if (allTransactionsList == null || allBudgetsList == null) return;
+
+        double overallLimit = 0;
+        double currentMonthSpent = 0;
+        HashMap<String, Double> categorySpending = new HashMap<>();
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(Calendar.DAY_OF_MONTH, 1);
+        cal.set(Calendar.HOUR_OF_DAY, 0);
+        cal.set(Calendar.MINUTE, 0);
+        cal.set(Calendar.SECOND, 0);
+        long startOfMonth = cal.getTimeInMillis();
+
+        for (Transaction t : allTransactionsList) {
+            if ("Expense".equals(t.getType())
+                    && !"Investment".equals(t.getCategory())
+                    && !"Goal".equals(t.getCategory())
+                    && t.getTimestamp() >= startOfMonth) {
+
+                double amount = Math.abs(t.getAmount());
+                currentMonthSpent += amount;
+
+                String cat = t.getCategory();
+                categorySpending.put(cat, categorySpending.getOrDefault(cat, 0.0) + amount);
+            }
+        }
+
+        for (Budget b : allBudgetsList) {
+            String budgetCategory = b.getCategory();
+            double limit = b.getAmount();
+
+            if ("Overall".equals(budgetCategory)) {
+                overallLimit = limit;
+            } else {
+                double spentInCategory = categorySpending.getOrDefault(budgetCategory, 0.0);
+                if (limit > 0 && spentInCategory > limit) {
+                    triggerBudgetNotification(budgetCategory);
+                }
+            }
+        }
+
+        if (overallLimit > 0) {
+            binding.tvBudgetStatus.setText(String.format(Locale.US, "$%.2f / $%.2f", currentMonthSpent, overallLimit));
+
+            if (currentMonthSpent > overallLimit) {
+                binding.tvBudgetStatus.setTextColor(Color.parseColor("#FF8A80"));
+                triggerBudgetNotification("Overall");
+            } else {
+                binding.tvBudgetStatus.setTextColor(Color.parseColor("#FFFFFF"));
+            }
+        } else {
+            binding.tvBudgetStatus.setText(String.format(Locale.US, "$%.2f / Not set", currentMonthSpent));
+            binding.tvBudgetStatus.setTextColor(Color.parseColor("#FFFFFF"));
+        }
+    }
+
+    private void triggerBudgetNotification(String category) {
+        if (getContext() == null) return;
+        SharedPreferences prefs = requireContext().getSharedPreferences("budget_prefs", android.content.Context.MODE_PRIVATE);
+        int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
+        String prefKey = "notified_" + category + "_" + currentMonth;
+
+        if (!prefs.getBoolean(prefKey, false)) {
+            NotificationHelper.showBudgetExceededNotification(requireContext(), category);
+
+            String message = "Your " + category + " budget has been exceeded this month!";
+            viewModel.insertNotification(new Notification("Budget Alert", message, System.currentTimeMillis()));
+
+            prefs.edit().putBoolean(prefKey, true).apply();
+        }
     }
 
     private void setupChart() {
@@ -285,6 +373,14 @@ public class HomeFragment extends Fragment {
         binding.notificationContainer.setOnClickListener(view -> {
             binding.notificationBadge.setVisibility(View.GONE);
             startActivity(new Intent(getActivity(), NotificationActivity.class));
+        });
+
+        binding.btnManageBudget.setOnClickListener(view -> {
+            requireActivity().getSupportFragmentManager().beginTransaction()
+                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                    .replace(R.id.fragment_container, new BudgetsFragment())
+                    .addToBackStack(null)
+                    .commit();
         });
     }
 

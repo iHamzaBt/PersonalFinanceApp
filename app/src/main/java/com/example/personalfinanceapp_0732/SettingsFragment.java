@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDelegate;
@@ -23,6 +26,7 @@ public class SettingsFragment extends Fragment {
     private static final String KEY_CURRENCY = "currency";
     private static final String KEY_THEME = "theme";
     private static final String KEY_FIRST_DAY = "first_day";
+    private static final String KEY_USER_NAME = "user_name";
 
     private final String[] currencies = {"USD $", "EUR €", "GBP £", "JPY ¥", "SAR ﷼", "AED د.إ", "ILS ₪", "JOD د.أ"};
     private final String[] firstDays = {"Sunday", "Monday", "Saturday"};
@@ -47,6 +51,8 @@ public class SettingsFragment extends Fragment {
     }
 
     private void loadCurrentSettings() {
+        binding.tvUserNameValue.setText(prefs.getString(KEY_USER_NAME, "Hamza"));
+
         binding.tvCurrencyValue.setText(prefs.getString(KEY_CURRENCY, "USD $"));
         binding.tvThemeValue.setText(prefs.getString(KEY_THEME, "System Default"));
         binding.tvFirstDayValue.setText(prefs.getString(KEY_FIRST_DAY, "Sunday"));
@@ -56,6 +62,8 @@ public class SettingsFragment extends Fragment {
     }
 
     private void setupClickListeners() {
+
+        binding.rowUserName.setOnClickListener(v -> showChangeNameDialog());
 
         binding.rowCurrency.setOnClickListener(v -> showSelectionDialog(
                 "Select Currency",
@@ -127,6 +135,31 @@ public class SettingsFragment extends Fragment {
                     .setPositiveButton("Got it", null)
                     .show();
         });
+    }
+
+    private void showChangeNameDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(requireContext());
+        builder.setTitle("Change Your Name");
+
+        final EditText input = new EditText(requireContext());
+        input.setText(prefs.getString(KEY_USER_NAME, "Hamza"));
+
+        LinearLayout layout = new LinearLayout(requireContext());
+        layout.setOrientation(LinearLayout.VERTICAL);
+        layout.setPadding(50, 40, 50, 10);
+        layout.addView(input);
+        builder.setView(layout);
+
+        builder.setPositiveButton("Save", (dialog, which) -> {
+            String newName = input.getText().toString().trim();
+            if (!newName.isEmpty()) {
+                prefs.edit().putString(KEY_USER_NAME, newName).apply();
+                binding.tvUserNameValue.setText(newName);
+                Toast.makeText(getContext(), "Name saved!", Toast.LENGTH_SHORT).show();
+            }
+        });
+        builder.setNegativeButton("Cancel", null);
+        builder.show();
     }
 
     private void showSelectionDialog(String title, String[] options, String current, OnOptionSelected callback) {

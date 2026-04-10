@@ -40,7 +40,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         notifyDataSetChanged();
     }
 
-   public static class NotifHolder extends RecyclerView.ViewHolder {
+    public Notification getNotificationAt(int position) {
+        return notifications.get(position);
+    }
+
+    public static class NotifHolder extends RecyclerView.ViewHolder {
         ItemNotificationBinding binding;
         public NotifHolder(ItemNotificationBinding binding) {
             super(binding.getRoot());
