@@ -19,21 +19,22 @@ public class CustomMarkerView extends MarkerView {
 
     @Override
     public void refreshContent(Entry e, Highlight highlight) {
+        String symbol = CurrencyHelper.getSymbol(getContext());
         if (e.getData() instanceof Transaction) {
             Transaction t = (Transaction) e.getData();
             String text;
 
             if ("Income".equals(t.getType())) {
-                text = "Earned: +$" + t.getAmount() + "\nBalance: $" + (int) e.getY();
+                text = "Earned: +" + symbol + t.getAmount() + "\nBalance: " + symbol + (int) e.getY();
             } else if ("Investment".equals(t.getCategory())) {
-                text = "Invested: -$" + t.getAmount() + "\nBalance: $" + (int) e.getY();
+                text = "Invested: -" + symbol + t.getAmount() + "\nBalance: " + symbol + (int) e.getY();
             } else {
-                text = "Spent: -$" + t.getAmount() + "\nBalance: $" + (int) e.getY();
+                text = "Spent: -" + symbol + t.getAmount() + "\nBalance: " + symbol + (int) e.getY();
             }
 
             tvContent.setText(text);
         } else {
-            tvContent.setText("Balance: $" + (int) e.getY());
+            tvContent.setText("Balance: " + symbol + (int) e.getY());
         }
         super.refreshContent(e, highlight);
     }

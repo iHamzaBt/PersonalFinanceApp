@@ -34,32 +34,30 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
     @Override
     public void onBindViewHolder(@NonNull TransactionHolder holder, int position) {
         Transaction current = transactions.get(position);
+        String symbol = CurrencyHelper.getSymbol(holder.itemView.getContext());
 
         holder.binding.tvTransactionTitle.setText(current.getTitle());
         holder.binding.tvTransactionCategory.setText(current.getCategory());
 
         if ("Investment".equals(current.getCategory())) {
-            holder.binding.tvTransactionAmount.setText("-$" + current.getAmount());
+            holder.binding.tvTransactionAmount.setText("-" + symbol + current.getAmount());
             holder.binding.tvTransactionAmount.setTextColor(Color.parseColor("#F57F17"));
-
             holder.binding.cardItem.setCardBackgroundColor(Color.parseColor("#FFF9C4"));
             holder.binding.cardItem.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#FBC02D")));
             holder.binding.viewCategoryColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFF59D")));
             holder.binding.ivCategoryIcon.setImageResource(R.drawable.investment_ic_adapter);
             holder.binding.ivCategoryIcon.setColorFilter(Color.parseColor("#FBC02D"));
         } else if ("Income".equals(current.getType())) {
-            holder.binding.tvTransactionAmount.setText("+$" + current.getAmount());
+            holder.binding.tvTransactionAmount.setText("+" + symbol + current.getAmount());
             holder.binding.tvTransactionAmount.setTextColor(Color.parseColor("#2E7D32"));
-
             holder.binding.cardItem.setCardBackgroundColor(Color.parseColor("#E8F5E9"));
             holder.binding.cardItem.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#4CAF50")));
             holder.binding.viewCategoryColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#C8E6C9")));
             holder.binding.ivCategoryIcon.setImageResource(R.drawable.income_ic_adapter);
             holder.binding.ivCategoryIcon.setColorFilter(Color.parseColor("#2E7D32"));
         } else {
-            holder.binding.tvTransactionAmount.setText("-$" + current.getAmount());
+            holder.binding.tvTransactionAmount.setText("-" + symbol + current.getAmount());
             holder.binding.tvTransactionAmount.setTextColor(Color.parseColor("#C62828"));
-
             holder.binding.cardItem.setCardBackgroundColor(Color.parseColor("#FFEBEE"));
             holder.binding.cardItem.setStrokeColor(ColorStateList.valueOf(Color.parseColor("#F44336")));
             holder.binding.viewCategoryColor.setBackgroundTintList(ColorStateList.valueOf(Color.parseColor("#FFCDD2")));
@@ -67,10 +65,9 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
             holder.binding.ivCategoryIcon.setColorFilter(Color.parseColor("#C62828"));
         }
     }
+
     @Override
-    public int getItemCount() {
-        return transactions.size();
-    }
+    public int getItemCount() { return transactions.size(); }
 
     public void setTransactions(List<Transaction> transactions) {
         this.transactions = transactions;
@@ -87,7 +84,6 @@ public class TransactionAdapter extends RecyclerView.Adapter<TransactionAdapter.
         public TransactionHolder(ItemTransactionBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-
             binding.getRoot().setOnClickListener(v -> {
                 int position = getBindingAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {

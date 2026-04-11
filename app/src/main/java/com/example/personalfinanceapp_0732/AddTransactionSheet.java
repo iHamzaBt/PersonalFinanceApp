@@ -34,6 +34,9 @@ public class AddTransactionSheet extends BottomSheetDialogFragment {
         binding = AddTransactionBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
 
+        String symbol = CurrencyHelper.getSymbol(requireContext());
+        binding.AmountPlaceHolder.setHint(symbol + "0.00");
+
         String[] categories = {"Food", "Transport", "Rent", "Bills", "Salary", "Shopping", "Investment", "Other"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, categories);
         binding.autoCompleteCategory.setAdapter(adapter);

@@ -42,6 +42,9 @@ public class AddEditTransactionFragment extends Fragment {
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
 
+        String symbol = CurrencyHelper.getSymbol(requireContext());
+        binding.etAmount.setHint(symbol + "0.00");
+
         setupCategoryDropdown();
         setupDatePicker();
         setupClickListeners();
@@ -63,7 +66,7 @@ public class AddEditTransactionFragment extends Fragment {
         binding.etDate.setOnClickListener(v -> {
             DatePickerDialog datePickerDialog = new DatePickerDialog(
                     requireContext(),
-                    (view, year, month, dayOfMonth) -> {
+                    (view1, year, month, dayOfMonth) -> {
                         selectedCalendar.set(Calendar.YEAR, year);
                         selectedCalendar.set(Calendar.MONTH, month);
                         selectedCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
@@ -142,7 +145,7 @@ public class AddEditTransactionFragment extends Fragment {
         }
 
         if (amountStr.isEmpty() || Double.parseDouble(amountStr) <= 0) {
-            binding.etAmount.setError("Required > 0");
+            binding.etAmount.setError("Amount must be greater than 0");
             return;
         }
 

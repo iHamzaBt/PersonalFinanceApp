@@ -153,7 +153,8 @@ public class TabContentFragment extends Fragment {
             public void onValueSelected(Entry e, Highlight h) {
                 if (e instanceof PieEntry) {
                     PieEntry pe = (PieEntry) e;
-                    String text = String.format(Locale.US, "%s\n$%.2f", pe.getLabel(), pe.getValue());
+                    String symbol = CurrencyHelper.getSymbol(requireContext());
+                    String text = String.format(Locale.US, "%s\n%s%.2f", pe.getLabel(), symbol, pe.getValue());
                     binding.pieChartCategories.setCenterText(text);
                     binding.pieChartCategories.setCenterTextSize(14f);
                 }
@@ -244,7 +245,8 @@ public class TabContentFragment extends Fragment {
 
     private void showDefaultTotal() {
         if (!currentTabTransactions.isEmpty()) {
-            String totalText = String.format(Locale.US, "Total\n$%.2f", currentTotalAmount);
+            String symbol = CurrencyHelper.getSymbol(requireContext());
+            String totalText = String.format(Locale.US, "Total\n%s%.2f", symbol, currentTotalAmount);
             binding.pieChartCategories.setCenterText(totalText);
             binding.pieChartCategories.setCenterTextSize(16f);
         } else {

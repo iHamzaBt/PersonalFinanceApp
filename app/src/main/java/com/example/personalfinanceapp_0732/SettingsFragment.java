@@ -28,7 +28,6 @@ public class SettingsFragment extends Fragment {
     private static final String KEY_FIRST_DAY = "first_day";
     private static final String KEY_USER_NAME = "user_name";
 
-    private final String[] currencies = {"USD $", "EUR €", "GBP £", "JPY ¥", "SAR ﷼", "AED د.إ", "ILS ₪", "JOD د.أ"};
     private final String[] firstDays = {"Sunday", "Monday", "Saturday"};
     private final String[] themes = {"Light", "Dark", "System Default"};
 
@@ -50,9 +49,14 @@ public class SettingsFragment extends Fragment {
         setupClickListeners();
     }
 
-    private void loadCurrentSettings() {
-        binding.tvUserNameValue.setText(prefs.getString(KEY_USER_NAME, "Hamza"));
+    @Override
+    public void onResume() {
+        super.onResume();
+        binding.tvCurrencyValue.setText(prefs.getString(KEY_CURRENCY, "USD $"));
+    }
 
+    private void loadCurrentSettings() {
+        binding.tvUserNameValue.setText(prefs.getString(KEY_USER_NAME, "Hamza Barakat"));
         binding.tvCurrencyValue.setText(prefs.getString(KEY_CURRENCY, "USD $"));
         binding.tvThemeValue.setText(prefs.getString(KEY_THEME, "System Default"));
         binding.tvFirstDayValue.setText(prefs.getString(KEY_FIRST_DAY, "Sunday"));
@@ -65,15 +69,18 @@ public class SettingsFragment extends Fragment {
 
         binding.rowUserName.setOnClickListener(v -> showChangeNameDialog());
 
-        binding.rowCurrency.setOnClickListener(v -> showSelectionDialog(
-                "Select Currency",
-                currencies,
-                prefs.getString(KEY_CURRENCY, "USD $"),
-                selected -> {
-                    prefs.edit().putString(KEY_CURRENCY, selected).apply();
-                    binding.tvCurrencyValue.setText(selected);
-                }
-        ));
+        binding.rowCurrency.setOnClickListener(v ->
+                requireActivity().getSupportFragmentManager()
+                        .beginTransaction()
+                        .setCustomAnimations(
+                                R.anim.slide_in_right,
+                                R.anim.slide_out_left,
+                                R.anim.slide_in_left,
+                                R.anim.slide_out_right)
+                        .replace(R.id.fragment_container, new CurrencySelectionFragment())
+                        .addToBackStack(null)
+                        .commit()
+        );
 
         binding.rowTheme.setOnClickListener(v -> showSelectionDialog(
                 "Select Theme",
@@ -128,13 +135,13 @@ public class SettingsFragment extends Fragment {
             }
         });
 
-        binding.rowWidget.setOnClickListener(v -> {
-            new AlertDialog.Builder(requireContext())
-                    .setTitle("Balance Widget")
-                    .setMessage("To add the widget:\n\n1. Long press on your home screen\n\n2. Tap 'Widgets'\n\n3. Find 'Elevate'\n\n4. Drag the Balance widget to your screen")
-                    .setPositiveButton("Got it", null)
-                    .show();
-        });
+        binding.rowWidget.setOnClickListener(v ->
+                new AlertDialog.Builder(requireContext())
+                        .setTitle("Balance Widget")
+                        .setMessage("To add the widget:\n\n1. Long press on your home screen\n\n2. Tap 'Widgets'\n\n3. Find 'Elevate'\n\n4. Drag the Balance widget to your screen")
+                        .setPositiveButton("Got it", null)
+                        .show()
+        );
     }
 
     private void showChangeNameDialog() {

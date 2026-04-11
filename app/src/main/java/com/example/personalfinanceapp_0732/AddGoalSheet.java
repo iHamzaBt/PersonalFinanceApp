@@ -22,6 +22,10 @@ public class AddGoalSheet extends BottomSheetDialogFragment {
         binding = AddGoalBinding.inflate(inflater, container, false);
 
         viewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
+
+        String symbol = CurrencyHelper.getSymbol(requireContext());
+        binding.GoalAmountPlaceHolder.setHint(symbol + "0.00");
+
         binding.SaveGoalBt.setOnClickListener(view -> saveGoal());
 
         return binding.getRoot();

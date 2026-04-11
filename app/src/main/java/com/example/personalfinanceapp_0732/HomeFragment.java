@@ -19,13 +19,11 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
 import com.example.personalfinanceapp_0732.databinding.FragmentHomeBinding;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -85,7 +83,6 @@ public class HomeFragment extends Fragment {
         });
 
         setupClickListeners();
-
         return binding.getRoot();
     }
 
@@ -108,8 +105,7 @@ public class HomeFragment extends Fragment {
             }
 
             @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
+            public void onNothingSelected(AdapterView<?> parent) {}
         });
     }
 
@@ -165,10 +161,8 @@ public class HomeFragment extends Fragment {
                     && !"Investment".equals(t.getCategory())
                     && !"Goal".equals(t.getCategory())
                     && t.getTimestamp() >= startOfMonth) {
-
                 double amount = Math.abs(t.getAmount());
                 currentMonthSpent += amount;
-
                 String cat = t.getCategory();
                 categorySpending.put(cat, categorySpending.getOrDefault(cat, 0.0) + amount);
             }
@@ -177,7 +171,6 @@ public class HomeFragment extends Fragment {
         for (Budget b : allBudgetsList) {
             String budgetCategory = b.getCategory();
             double limit = b.getAmount();
-
             if ("Overall".equals(budgetCategory)) {
                 overallLimit = limit;
             } else {
@@ -188,9 +181,10 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        if (overallLimit > 0) {
-            binding.tvBudgetStatus.setText(String.format(Locale.US, "$%.2f / $%.2f", currentMonthSpent, overallLimit));
+        String symbol = CurrencyHelper.getSymbol(requireContext());
 
+        if (overallLimit > 0) {
+            binding.tvBudgetStatus.setText(String.format(Locale.US, "%s%.2f / %s%.2f", symbol, currentMonthSpent, symbol, overallLimit));
             if (currentMonthSpent > overallLimit) {
                 binding.tvBudgetStatus.setTextColor(Color.parseColor("#FF8A80"));
                 triggerBudgetNotification("Overall");
@@ -198,7 +192,7 @@ public class HomeFragment extends Fragment {
                 binding.tvBudgetStatus.setTextColor(Color.parseColor("#FFFFFF"));
             }
         } else {
-            binding.tvBudgetStatus.setText(String.format(Locale.US, "$%.2f / Not set", currentMonthSpent));
+            binding.tvBudgetStatus.setText(String.format(Locale.US, "%s%.2f / Not set", symbol, currentMonthSpent));
             binding.tvBudgetStatus.setTextColor(Color.parseColor("#FFFFFF"));
         }
     }
@@ -208,13 +202,10 @@ public class HomeFragment extends Fragment {
         SharedPreferences prefs = requireContext().getSharedPreferences("budget_prefs", android.content.Context.MODE_PRIVATE);
         int currentMonth = Calendar.getInstance().get(Calendar.MONTH);
         String prefKey = "notified_" + category + "_" + currentMonth;
-
         if (!prefs.getBoolean(prefKey, false)) {
             NotificationHelper.showBudgetExceededNotification(requireContext(), category);
-
             String message = "Your " + category + " budget has been exceeded this month!";
             viewModel.insertNotification(new Notification("Budget Alert", message, System.currentTimeMillis()));
-
             prefs.edit().putBoolean(prefKey, true).apply();
         }
     }
@@ -222,14 +213,12 @@ public class HomeFragment extends Fragment {
     private void setupChart() {
         binding.mainChart.setNoDataText("No transactions found.");
         binding.mainChart.setNoDataTextColor(Color.parseColor("#757575"));
-
         binding.mainChart.getDescription().setEnabled(false);
         binding.mainChart.setTouchEnabled(true);
         binding.mainChart.setDragEnabled(true);
         binding.mainChart.setScaleEnabled(false);
         binding.mainChart.setPinchZoom(false);
         binding.mainChart.setDrawGridBackground(false);
-
         binding.mainChart.getXAxis().setEnabled(false);
         binding.mainChart.getAxisRight().setEnabled(false);
         binding.mainChart.getLegend().setEnabled(false);
@@ -256,7 +245,6 @@ public class HomeFragment extends Fragment {
 
         for (int i = transactions.size() - 1; i >= 0; i--) {
             Transaction t = transactions.get(i);
-
             if ("Investment".equals(t.getCategory())) {
                 runningBalance -= t.getAmount();
                 pointColors.add(Color.parseColor("#FBC02D"));
@@ -267,7 +255,6 @@ public class HomeFragment extends Fragment {
                 runningBalance -= t.getAmount();
                 pointColors.add(Color.parseColor("#E53935"));
             }
-
             entries.add(new Entry(transactions.size() - 1 - i, runningBalance, t));
         }
 
@@ -280,19 +267,16 @@ public class HomeFragment extends Fragment {
         dataSet.setMode(LineDataSet.Mode.CUBIC_BEZIER);
         dataSet.setColor(Color.parseColor("#4CAF50"));
         dataSet.setLineWidth(3f);
-
         dataSet.setDrawCircles(true);
         dataSet.setCircleColors(pointColors);
         dataSet.setCircleRadius(4f);
         dataSet.setDrawCircleHole(true);
         dataSet.setCircleHoleColor(Color.WHITE);
-
         dataSet.setDrawValues(false);
         dataSet.setDrawFilled(true);
 
         LineData lineData = new LineData(dataSet);
         binding.mainChart.setData(lineData);
-
         binding.mainChart.animateX(1000);
     }
 
@@ -308,7 +292,6 @@ public class HomeFragment extends Fragment {
                 Toast.makeText(getContext(), "Manage goals from the Goals section", Toast.LENGTH_SHORT).show();
                 return;
             }
-
             TransactionDetailsFragment detailsFragment = new TransactionDetailsFragment();
             detailsFragment.setTransaction(transaction);
             requireActivity().getSupportFragmentManager().beginTransaction()
@@ -328,7 +311,6 @@ public class HomeFragment extends Fragment {
             public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
                 int position = viewHolder.getBindingAdapterPosition();
                 Transaction transactionToDelete = adapter.getTransactionAt(position);
-
                 if ("Goal".equals(transactionToDelete.getCategory())) {
                     String goalTitle = transactionToDelete.getTitle().replace("Fund: ", "");
                     for (Goal g : allCurrentGoals) {
@@ -341,7 +323,6 @@ public class HomeFragment extends Fragment {
                         }
                     }
                 }
-
                 viewModel.delete(transactionToDelete);
                 Toast.makeText(getContext(), "Transaction Deleted!", Toast.LENGTH_SHORT).show();
             }
@@ -352,9 +333,7 @@ public class HomeFragment extends Fragment {
         homeGoalAdapter = new HomeGoalAdapter();
         binding.recyclerViewHomeGoals.setAdapter(homeGoalAdapter);
 
-        homeGoalAdapter.setOnItemClickListener(goal -> {
-            startActivity(new Intent(getActivity(), GoalsActivity.class));
-        });
+        homeGoalAdapter.setOnItemClickListener(goal -> startActivity(new Intent(getActivity(), GoalsActivity.class)));
     }
 
     private void setupClickListeners() {
@@ -366,22 +345,19 @@ public class HomeFragment extends Fragment {
             addInvestmentSheet.show(getChildFragmentManager(), "AddInvestmentSheet");
         });
 
-        binding.btnSeeGoals.setOnClickListener(view -> {
-            startActivity(new Intent(getActivity(), GoalsActivity.class));
-        });
+        binding.btnSeeGoals.setOnClickListener(view -> startActivity(new Intent(getActivity(), GoalsActivity.class)));
 
         binding.notificationContainer.setOnClickListener(view -> {
             binding.notificationBadge.setVisibility(View.GONE);
             startActivity(new Intent(getActivity(), NotificationActivity.class));
         });
 
-        binding.btnManageBudget.setOnClickListener(view -> {
-            requireActivity().getSupportFragmentManager().beginTransaction()
-                    .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
-                    .replace(R.id.fragment_container, new BudgetsFragment())
-                    .addToBackStack(null)
-                    .commit();
-        });
+        binding.btnManageBudget.setOnClickListener(view ->
+                requireActivity().getSupportFragmentManager().beginTransaction()
+                        .setCustomAnimations(R.anim.slide_in_right, R.anim.slide_out_left, R.anim.slide_in_left, R.anim.slide_out_right)
+                        .replace(R.id.fragment_container, new BudgetsFragment())
+                        .addToBackStack(null)
+                        .commit());
     }
 
     private void openAddTransactionSheet() {
@@ -396,9 +372,7 @@ public class HomeFragment extends Fragment {
 
         for (Transaction t : transactions) {
             if ("Investment".equals(t.getCategory())) {
-                if (t.getAmount() > 0) {
-                    totalInvestment += t.getAmount();
-                }
+                if (t.getAmount() > 0) totalInvestment += t.getAmount();
             } else if (t.getAmount() > 0 && "Income".equals(t.getType())) {
                 income += t.getAmount();
             } else {
@@ -407,27 +381,27 @@ public class HomeFragment extends Fragment {
         }
 
         double balance = (income - totalInvestment) - expense;
+        String symbol = CurrencyHelper.getSymbol(requireContext());
 
-        binding.tvTotalBalance.setText(String.format(Locale.US, "$%.2f", balance));
-        binding.tvIncomeValue.setText(String.format(Locale.US, "$%.2f", income));
-        binding.tvExpenseValue.setText(String.format(Locale.US, "$%.2f", expense));
-        binding.tvTotalInvestment.setText(String.format(Locale.US, "$%.2f", totalInvestment));
+        binding.tvTotalBalance.setText(String.format(Locale.US, "%s%.2f", symbol, balance));
+        binding.tvIncomeValue.setText(String.format(Locale.US, "%s%.2f", symbol, income));
+        binding.tvExpenseValue.setText(String.format(Locale.US, "%s%.2f", symbol, expense));
+        binding.tvTotalInvestment.setText(String.format(Locale.US, "%s%.2f", symbol, totalInvestment));
 
         updateWidget(balance, income, expense);
     }
 
     private void updateWidget(double balance, double income, double expense) {
-        SharedPreferences prefs = requireContext().getSharedPreferences("widget_data",
-                android.content.Context.MODE_PRIVATE);
+        String symbol = CurrencyHelper.getSymbol(requireContext());
+        SharedPreferences prefs = requireContext().getSharedPreferences("widget_data", android.content.Context.MODE_PRIVATE);
         prefs.edit()
-                .putString("balance", String.format(Locale.US, "$%.2f", balance))
-                .putString("income",  String.format(Locale.US, "$%.2f", income))
-                .putString("expense", String.format(Locale.US, "$%.2f", expense))
+                .putString("balance", String.format(Locale.US, "%s%.2f", symbol, balance))
+                .putString("income", String.format(Locale.US, "%s%.2f", symbol, income))
+                .putString("expense", String.format(Locale.US, "%s%.2f", symbol, expense))
                 .apply();
 
         AppWidgetManager manager = AppWidgetManager.getInstance(requireContext());
-        int[] ids = manager.getAppWidgetIds(
-                new ComponentName(requireContext(), BalanceWidget.class));
+        int[] ids = manager.getAppWidgetIds(new ComponentName(requireContext(), BalanceWidget.class));
         for (int id : ids) {
             BalanceWidget.updateWidget(requireContext(), manager, id);
         }

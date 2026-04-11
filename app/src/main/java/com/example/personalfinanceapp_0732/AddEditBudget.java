@@ -41,6 +41,9 @@ public class AddEditBudget extends BottomSheetDialogFragment {
         EditText etLimitAmount = view.findViewById(R.id.etLimitAmount);
         MaterialButton btnSaveBudgetSheet = view.findViewById(R.id.btnSaveBudgetSheet);
 
+        String symbol = CurrencyHelper.getSymbol(requireContext());
+        etLimitAmount.setHint(symbol + "0.00");
+
         String[] categories = {"Food", "Transport", "Rent", "Bills", "Shopping", "Other"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(requireContext(), android.R.layout.simple_dropdown_item_1line, categories);
         etCategoryName.setAdapter(adapter);

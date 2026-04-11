@@ -38,7 +38,7 @@ public class NotificationHelper {
         );
 
         NotificationCompat.Builder congratsNotification = new NotificationCompat.Builder(context, GOAL_CHANNEL_ID)
-                .setSmallIcon(R.drawable.notification_icon)
+                .setSmallIcon(R.drawable.app_logo_white_no_bg)
                 .setContentTitle("🎉 Goal Achieved!")
                 .setContentText("Congratulations! You have fully funded your goal: " + goalTitle)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
@@ -46,7 +46,7 @@ public class NotificationHelper {
                 .setAutoCancel(true);
 
         NotificationCompat.Builder motivationNotification = new NotificationCompat.Builder(context, GOAL_CHANNEL_ID)
-                .setSmallIcon(R.drawable.splash_logo_no_background)
+                .setSmallIcon(R.drawable.app_logo_white_no_bg)
                 .setContentTitle("🚀 What's Next?")
                 .setContentText("A person without goals is like a ship without a Captain. Set your next financial goal now and keep growing!")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT)
@@ -81,7 +81,7 @@ public class NotificationHelper {
                 PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, BUDGET_CHANNEL_ID)
-                .setSmallIcon(R.drawable.notification_icon)
+                .setSmallIcon(R.drawable.app_logo_white_no_bg)
                 .setContentTitle("Budget Exceeded")
                 .setContentText("Your " + category + " budget has been exceeded this month!")
                 .setAutoCancel(true)

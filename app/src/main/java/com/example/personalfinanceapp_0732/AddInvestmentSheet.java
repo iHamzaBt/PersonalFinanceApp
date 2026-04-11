@@ -28,6 +28,9 @@ public class AddInvestmentSheet extends BottomSheetDialogFragment {
         binding = AddInvestmentBinding.inflate(inflater, container, false);
         viewModel = new ViewModelProvider(requireActivity()).get(TransactionViewModel.class);
 
+        String symbol = CurrencyHelper.getSymbol(requireContext());
+        binding.AmountPlaceHolder.setHint(symbol + "0.00");
+
         if (transactionToEdit != null) {
             binding.NewInvestmentTV.setText("Edit Investment");
             binding.TitlePlaceHolder.setText(transactionToEdit.getTitle());

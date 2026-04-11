@@ -48,7 +48,9 @@ public class TransactionDetailsFragment extends Fragment {
     }
 
     private void populateData() {
-        String amountStr = String.format(Locale.US, "$%.2f", transaction.getAmount());
+        String symbol = CurrencyHelper.getSymbol(requireContext());
+        String amountStr = String.format(Locale.US, "%s%.2f", symbol, transaction.getAmount());
+
         binding.tvTitle.setText(transaction.getTitle());
         binding.tvCategory.setText(transaction.getCategory());
 
@@ -66,6 +68,7 @@ public class TransactionDetailsFragment extends Fragment {
         }
 
         binding.tvTypeBadge.setText(transaction.getType());
+
         if ("Investment".equals(transaction.getCategory())) {
             binding.tvAmount.setTextColor(Color.parseColor("#F57F17"));
             binding.tvAmount.setText("-" + amountStr);

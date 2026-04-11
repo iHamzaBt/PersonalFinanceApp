@@ -35,21 +35,19 @@ public class HomeGoalAdapter extends RecyclerView.Adapter<HomeGoalAdapter.HomeGo
     @Override
     public void onBindViewHolder(@NonNull HomeGoalHolder holder, int position) {
         Goal current = goals.get(position);
+        String symbol = CurrencyHelper.getSymbol(holder.itemView.getContext());
 
         holder.binding.tvHomeGoalTitle.setText(current.getTitle());
-        String amountText = "$" + current.getSavedAmount() + " / $" + current.getTargetAmount();
+        String amountText = symbol + current.getSavedAmount() + " / " + symbol + current.getTargetAmount();
         holder.binding.tvHomeGoalAmounts.setText(amountText);
 
         int colorIndex = current.getId() % bgColors.length;
-
         holder.binding.cardHomeGoal.setCardBackgroundColor(Color.parseColor(bgColors[colorIndex]));
         holder.binding.tvHomeGoalAmounts.setTextColor(Color.parseColor(textColors[colorIndex]));
     }
 
     @Override
-    public int getItemCount() {
-        return goals.size();
-    }
+    public int getItemCount() { return goals.size(); }
 
     public void setGoals(List<Goal> goals) {
         this.goals = goals;
@@ -62,7 +60,6 @@ public class HomeGoalAdapter extends RecyclerView.Adapter<HomeGoalAdapter.HomeGo
         public HomeGoalHolder(ItemGoalHomeBinding binding) {
             super(binding.getRoot());
             this.binding = binding;
-
             binding.cardHomeGoal.setOnClickListener(v -> {
                 int position = getBindingAdapterPosition();
                 if (listener != null && position != RecyclerView.NO_POSITION) {
