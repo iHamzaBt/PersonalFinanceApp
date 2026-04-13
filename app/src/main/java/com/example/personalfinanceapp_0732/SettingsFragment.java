@@ -149,7 +149,7 @@ public class SettingsFragment extends Fragment {
         builder.setTitle("Change Your Name");
 
         final EditText input = new EditText(requireContext());
-        input.setText(prefs.getString(KEY_USER_NAME, "Hamza"));
+        input.setText(prefs.getString(KEY_USER_NAME, "Hamza Barakat"));
 
         LinearLayout layout = new LinearLayout(requireContext());
         layout.setOrientation(LinearLayout.VERTICAL);

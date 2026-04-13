@@ -106,7 +106,7 @@
                                 android:layout_height="wrap_content"
                                 android:textColor="#757575"
                                 android:textSize="13sp"
-                                tools:text="Hamza" />
+                                tools:text="@string/user_name" />
                         </LinearLayout>
 
                         <ImageView

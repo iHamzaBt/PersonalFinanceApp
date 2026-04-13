@@ -88,7 +88,7 @@ public class HomeFragment extends Fragment {
 
     private void loadUserName() {
         SharedPreferences prefs = requireContext().getSharedPreferences("app_settings", android.content.Context.MODE_PRIVATE);
-        String userName = prefs.getString("user_name", "Hamza");
+        String userName = prefs.getString("user_name", "Hamza Barakat");
         binding.tvUserName.setText(userName);
     }
 
