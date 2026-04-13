@@ -84,6 +84,7 @@
         app:tabIndicatorColor="#2E7D32"
         app:tabIndicatorHeight="3dp"
         app:tabSelectedTextColor="#2E7D32"
+        app:tabRippleColor="#6622422F"
         app:tabTextColor="#757575">
 
         <com.google.android.material.tabs.TabItem

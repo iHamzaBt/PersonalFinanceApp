@@ -14,7 +14,7 @@
 
     <style name="BottomNavTextStyle_Selected">
         <item name="android:textStyle">bold</item>
-        <item name="android:textSize">12sp</item>
+        <item name="android:textSize">14sp</item>
     </style>
 
     <style name="BottomNavTextStyle_Normal">
