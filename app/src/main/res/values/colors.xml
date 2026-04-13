@@ -2,6 +2,18 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="Main_color_theme">#22422F</color>
+
+
+    <!-- Initial Color Selection For Light Mode -->
+    <color name="bg_primary">#F8F9FA</color>
+    <color name="bg_card">#FFFFFF</color>
+    <color name="text_primary">#212121</color>
+    <color name="text_secondary">#757575</color>
+    <color name="nav_bg">#FFFFFF</color>
+
+
+    <!-- Will Work on Dark Mode Next Week -->
 
 
     <!-- Bottom Nav Colors -->
@@ -10,4 +22,6 @@
     <color name="nav_indicator">#1A2E7D32</color>
     <color name="nav_background">#FFFFFF</color>
     <color name="nav_background_dark">#121212</color>
+
+
 </resources>
