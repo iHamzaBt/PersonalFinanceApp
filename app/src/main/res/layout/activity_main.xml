@@ -28,6 +28,8 @@
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         app:elevation="0dp"
+        app:itemTextAppearanceActive="@style/BottomNavTextStyle_Selected"
+        app:itemTextAppearanceInactive="@style/BottomNavTextStyle_Normal"
         app:itemActiveIndicatorStyle="@null"
         app:itemIconTint="@color/nav_item_color"
         app:itemRippleColor="@null"

@@ -83,4 +83,6 @@
     <string name="security">SECURITY</string>
     <string name="try_again">Try Again</string>
     <string name="place_your_finger_on_the_sensor">Place your finger on the sensor</string>
+    <string name="choose_your_preferred_currency">Choose your preferred currency</string>
+    <string name="search_currency">Search currency...</string>
 </resources>
