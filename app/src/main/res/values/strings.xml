@@ -81,4 +81,6 @@
     <string name="delete_all_transactions_and_goals">Delete all transactions and goals</string>
     <string name="data_management">DATA MANAGEMENT</string>
     <string name="security">SECURITY</string>
+    <string name="try_again">Try Again</string>
+    <string name="place_your_finger_on_the_sensor">Place your finger on the sensor</string>
 </resources>
