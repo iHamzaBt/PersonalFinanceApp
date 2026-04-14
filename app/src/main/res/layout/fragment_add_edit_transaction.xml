@@ -72,7 +72,7 @@
         android:layout_height="0dp"
         android:layout_marginTop="24dp"
         app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="32dp"
+        app:shapeAppearanceOverlay="@style/AddEditTransactionCardViewShape"
         app:cardElevation="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/etAmount">
@@ -84,7 +84,9 @@
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="24dp">
+                android:paddingHorizontal="24dp"
+                android:paddingTop="24dp"
+                android:paddingBottom="16dp">
 
                 <com.google.android.material.button.MaterialButtonToggleGroup
                     android:id="@+id/toggleGroupType"
@@ -234,7 +236,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="60dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginBottom="16dp"
                     android:backgroundTint="#2E7D32"
                     android:text="@string/save_transaction"
                     android:textColor="#FFFFFF"
@@ -247,5 +248,4 @@
             </androidx.constraintlayout.widget.ConstraintLayout>
         </androidx.core.widget.NestedScrollView>
     </com.google.android.material.card.MaterialCardView>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

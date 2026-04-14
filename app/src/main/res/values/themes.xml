@@ -22,5 +22,13 @@
         <item name="android:textSize">12sp</item>
     </style>
 
+    <style name="AddEditTransactionCardViewShape" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSizeTopRight">32dp</item>
+        <item name="cornerSizeTopLeft">32dp</item>
+        <item name="cornerSizeBottomRight">0dp</item>
+        <item name="cornerSizeBottomLeft">0dp</item>
+    </style>
+
     <style name="Theme.PersonalFinanceApp_0732" parent="Base.Theme.PersonalFinanceApp_0732" />
 </resources>
