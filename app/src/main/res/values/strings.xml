@@ -85,4 +85,15 @@
     <string name="place_your_finger_on_the_sensor">Place your finger on the sensor</string>
     <string name="choose_your_preferred_currency">Choose your preferred currency</string>
     <string name="search_currency">Search currency...</string>
+    <string name="date">Date</string>
+    <string name="note_optional">Note (Optional)</string>
+    <string name="save_transaction">Save Transaction</string>
+    <string name="new_transaction">New Transaction</string>
+    <string name="how_much">How much?</string>
+    <string name="title_required">Title (Required)</string>
+    <string name="description_required">Description (Required)</string>
+    <string name="add_budget_limit">Add Budget Limit</string>
+    <string name="select_category">Select Category</string>
+    <string name="limit_amount">Limit Amount</string>
+    <string name="save_bt">Save</string>
 </resources>
